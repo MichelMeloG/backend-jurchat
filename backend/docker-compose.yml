@@ -1,0 +1,127 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15
+    container_name: jurchat_postgres
+    environment:
+      POSTGRES_DB: jurchat
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres123
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "5432:5432"
+    networks:
+      - jurchat_network
+
+  # Redis Cache
+  redis:
+    image: redis:7-alpine
+    container_name: jurchat_redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - jurchat_network
+
+  # MinIO (S3 compatible storage)
+  minio:
+    image: minio/minio:latest
+    container_name: jurchat_minio
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin123
+    command: server /data --console-address ":9001"
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - minio_data:/data
+    networks:
+      - jurchat_network
+
+  # Django Application
+  django_app:
+    build:
+      context: ./django_app
+      dockerfile: Dockerfile
+    container_name: jurchat_django
+    environment:
+      - DEBUG=False
+      - SECRET_KEY=your-secret-key-change-in-production
+      - DB_NAME=jurchat
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres123
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - REDIS_URL=redis://redis:6379/1
+      - FASTAPI_SERVICE_URL=http://fastapi_app:8001
+      - USE_S3=True
+      - AWS_ACCESS_KEY_ID=minioadmin
+      - AWS_SECRET_ACCESS_KEY=minioadmin123
+      - AWS_STORAGE_BUCKET_NAME=jurchat-documents
+      - AWS_S3_ENDPOINT_URL=http://minio:9000
+    volumes:
+      - django_media:/app/media
+      - django_static:/app/staticfiles
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgres
+      - redis
+      - minio
+    networks:
+      - jurchat_network
+    command: >
+      sh -c "python manage.py migrate &&
+             python manage.py collectstatic --noinput &&
+             python manage.py runserver 0.0.0.0:8000"
+
+  # FastAPI Microservice
+  fastapi_app:
+    build:
+      context: ./fastapi_app
+      dockerfile: Dockerfile
+    container_name: jurchat_fastapi
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - OPENAI_MODEL=gpt-3.5-turbo
+      - MAX_TOKENS=2000
+    ports:
+      - "8001:8001"
+    networks:
+      - jurchat_network
+    command: uvicorn main:app --host 0.0.0.0 --port 8001 --reload
+
+  # Nginx Reverse Proxy
+  nginx:
+    image: nginx:alpine
+    container_name: jurchat_nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/ssl:/etc/nginx/ssl
+      - django_static:/var/www/static
+      - django_media:/var/www/media
+    depends_on:
+      - django_app
+      - fastapi_app
+    networks:
+      - jurchat_network
+
+volumes:
+  postgres_data:
+  redis_data:
+  minio_data:
+  django_media:
+  django_static:
+
+networks:
+  jurchat_network:
+    driver: bridge

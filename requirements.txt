@@ -1,0 +1,61 @@
+# JurChat Backend - Complete Requirements
+# Use this file to install all dependencies for both Django and FastAPI apps
+
+# ===== DJANGO APP DEPENDENCIES =====
+
+# Django Core
+Django==4.2.7
+djangorestframework==3.14.0
+djangorestframework-simplejwt==5.3.0
+django-cors-headers==4.3.1
+django-redis==5.4.0
+django-storages==1.14.2
+
+# Database
+psycopg2-binary==2.9.9
+
+# AWS/S3
+boto3==1.34.0
+
+# Security
+cryptography==41.0.8
+
+# Production server
+gunicorn==21.2.0
+
+# Utilities
+Pillow==10.1.0
+
+# ===== FASTAPI APP DEPENDENCIES =====
+
+# FastAPI Core
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+pydantic==2.5.0
+
+# Document Processing
+PyPDF2==3.0.1
+python-docx==1.1.0
+
+# AI/ML
+openai==1.3.7
+
+# HTTP client
+httpx==0.25.2
+requests==2.31.0
+
+# Async support
+aiofiles==23.2.1
+
+# File upload handling
+python-multipart==0.0.6
+
+# ===== SHARED DEPENDENCIES =====
+
+# Environment
+python-dotenv==1.0.0
+
+# Installation Instructions:
+# 1. Create virtual environment: python -m venv venv
+# 2. Activate: venv\Scripts\activate (Windows) or source venv/bin/activate (Linux/Mac)
+# 3. Install: pip install -r requirements.txt

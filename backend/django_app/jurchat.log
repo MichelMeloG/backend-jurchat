@@ -1,0 +1,26 @@
+INFO 2025-08-27 09:10:59,916 autoreload 12076 2716 Watching for file changes with StatReloader
+WARNING 2025-08-27 09:11:03,934 log 12076 7500 Not Found: /
+WARNING 2025-08-27 09:11:04,017 log 12076 7500 Not Found: /favicon.ico
+WARNING 2025-08-27 09:13:26,242 log 12076 12480 Not Found: /docs
+WARNING 2025-08-27 09:13:26,334 log 12076 12480 Not Found: /favicon.ico
+WARNING 2025-08-27 09:13:34,473 log 12076 12480 Not Found: /auth
+WARNING 2025-08-27 09:13:50,221 log 12076 12480 Not Found: /user
+WARNING 2025-08-27 09:15:59,811 log 12076 15396 Not Found: /
+INFO 2025-08-27 09:16:09,406 autoreload 12076 2716 C:\Users\202401569852\Projetos\backend-jurchat\backend\django_app\core\settings.py changed, reloading.
+INFO 2025-08-27 09:16:09,905 autoreload 12564 2792 Watching for file changes with StatReloader
+INFO 2025-08-27 09:16:31,800 autoreload 12564 2792 C:\Users\202401569852\Projetos\backend-jurchat\backend\django_app\core\urls.py changed, reloading.
+INFO 2025-08-27 09:16:32,215 autoreload 9368 2308 Watching for file changes with StatReloader
+INFO 2025-08-27 09:16:42,732 autoreload 9368 2308 C:\Users\202401569852\Projetos\backend-jurchat\backend\django_app\core\urls.py changed, reloading.
+INFO 2025-08-27 09:16:43,152 autoreload 376 9160 Watching for file changes with StatReloader
+WARNING 2025-08-27 09:20:00,647 log 376 7508 Not Found: /api/auth/register/
+WARNING 2025-08-27 09:20:13,420 log 376 12016 Not Found: /api/auth/register/
+WARNING 2025-08-27 09:20:33,555 log 376 12016 Not Found: /api/auth/
+WARNING 2025-08-27 09:20:54,855 log 376 7508 Not Found: /api/auth/
+INFO 2025-08-27 09:56:06,658 autoreload 376 9160 C:\Users\202401569852\Projetos\backend-jurchat\backend\django_app\core\urls.py changed, reloading.
+INFO 2025-08-27 09:56:07,146 autoreload 14480 10560 Watching for file changes with StatReloader
+INFO 2025-08-27 09:56:13,593 autoreload 14480 10560 C:\Users\202401569852\Projetos\backend-jurchat\backend\django_app\core\urls.py changed, reloading.
+INFO 2025-08-27 09:56:13,986 autoreload 15948 5824 Watching for file changes with StatReloader
+WARNING 2025-08-27 09:56:17,950 log 15948 8736 Method Not Allowed: /api/auth/register/
+WARNING 2025-08-27 09:56:24,878 log 15948 8736 Method Not Allowed: /api/auth/login/
+INFO 2025-08-27 10:01:49,194 autoreload 15948 5824 C:\Users\202401569852\Projetos\backend-jurchat\backend\django_app\core\urls.py changed, reloading.
+INFO 2025-08-27 10:01:49,677 autoreload 3380 2264 Watching for file changes with StatReloader
